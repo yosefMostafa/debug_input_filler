@@ -1,4 +1,4 @@
-name: debug_Input_filler
+name: debug_input_filler
 description: A Flutter widget to inject initial values in debug mode.
 version: 0.0.1
 homepage:
@@ -10,6 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  faker: ^2.2.0
 
 dev_dependencies:
   flutter_test:

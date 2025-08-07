@@ -1,3 +1,5 @@
+import 'package:debug_input_filler/debug_input_filler_auto.dart';
+import 'package:debug_input_filler/enums.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 
@@ -10,16 +12,20 @@ typedef DebugInitializer = void Function();
 class DebugInitialValues extends StatelessWidget {
   final DebugInitializer initializeValues;
   final DebugFormBuilder builder;
+  final DebugInputFillerTypes detctionAlgorithm;
 
   const DebugInitialValues({
     super.key,
     required this.initializeValues,
     required this.builder,
+    required this.detctionAlgorithm,
   });
 
   @override
   Widget build(BuildContext context) {
-    kDebugMode ? initializeValues() : null;
+    if (!kDebugMode) {
+      return builder(context);
+    }
     // T getValue<T>(String key) {
     //   final value = debugValues[key];
     //   if (value is T) return value;
@@ -31,7 +37,14 @@ class DebugInitialValues extends StatelessWidget {
 
     //   return null as T;
     // }
-
+    if (detctionAlgorithm == DebugInputFillerTypes.auto) {
+      return DebugAutoFillerScopeState(
+        child: builder(context),
+      );
+    } else if (detctionAlgorithm ==
+        DebugInputFillerTypes.simpleBuilderFunction) {
+      return builder(context);
+    }
     return builder(context);
   }
 }
