@@ -1,5 +1,6 @@
 import 'package:debug_input_filler/debug_input_filler_auto.dart';
 import 'package:debug_input_filler/enums.dart';
+import 'package:debug_input_filler/highlight_wrapper.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 
@@ -39,7 +40,7 @@ class DebugInitialValues extends StatelessWidget {
     // }
     if (detctionAlgorithm == DebugInputFillerTypes.auto) {
       return DebugAutoFillerScopeState(
-        child: builder(context),
+        child: HighlightWrapper(child: builder(context)),
       );
     } else if (detctionAlgorithm ==
         DebugInputFillerTypes.simpleBuilderFunction) {

@@ -3,4 +3,4 @@ enum DebugInputFillerTypes {
   simpleBuilderFunction,
 }
 
-enum InputTypes { email, randomText }
+enum InputTypes { email, password, randomText }

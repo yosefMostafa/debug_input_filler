@@ -6,21 +6,27 @@ import 'package:faker/faker.dart';
 class FakerDataGenrator {
   final Faker faker = Faker();
 
-  InputTypes parseKey(ValueKey<String> key) {
+  InputTypes parseKey(Key? key) {
     if (key is DebugInputFillerKeys) {
       return key.keyType;
     }
     return InputTypes.randomText;
   }
 
-  String generateValueFromKey(ValueKey<String> key) {
+  String generateValueFromKey(Key? key) {
     final type = parseKey(key);
     switch (type) {
       case InputTypes.email:
         return generateEmail();
+      case InputTypes.password:
+        return generatePassword();
       case InputTypes.randomText:
-        return generateName();
+        return generateRandomText();
     }
+  }
+
+  String generatePassword() {
+    return faker.internet.password();
   }
 
   String generateEmail() {
