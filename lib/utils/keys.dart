@@ -4,4 +4,5 @@ export 'keys.impl.dart'
         PassKey,
         RandomTextKey,
         RandomChoiceKey,
+        SmallNumber,
         DebugInputFillerKeys;

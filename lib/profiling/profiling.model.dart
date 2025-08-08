@@ -1,4 +1,4 @@
-import 'package:debug_input_filler/enums.dart';
+import 'package:debug_input_filler/utils/enums.dart';
 
 class DebugProfile {
   final String name; // For user selection in debug UI

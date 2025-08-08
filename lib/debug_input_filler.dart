@@ -1,7 +1,6 @@
 import 'package:debug_input_filler/Auto/debug_input_filler_auto.dart';
-import 'package:debug_input_filler/Exeptions/profiling.exceptions.dart';
-import 'package:debug_input_filler/enums.dart';
-import 'package:debug_input_filler/highlight_wrapper.dart';
+import 'package:debug_input_filler/utils/enums.dart';
+import 'package:debug_input_filler/widgets/highlight_wrapper.dart';
 import 'package:debug_input_filler/profiling/profiling.model.dart';
 import 'package:debug_input_filler/profiling/profiling_register.dart';
 import 'package:flutter/foundation.dart';
@@ -14,15 +13,18 @@ typedef DebugFormBuilder = Widget Function(
 typedef DebugInitializer = void Function();
 
 class DebugInitialValues extends StatelessWidget {
-  final DebugInitializer initializeValues;
+  final DebugInitializer? initializeValues;
+  final bool enableAutoFillerHighlight;
   final DebugFormBuilder builder;
   final DebugInputFillerTypes detctionAlgorithm;
   const DebugInitialValues({
     super.key,
-    required this.initializeValues,
+    this.initializeValues,
+    this.enableAutoFillerHighlight = false,
     required this.builder,
-    required this.detctionAlgorithm,
+    this.detctionAlgorithm = DebugInputFillerTypes.simpleBuilderFunction,
   });
+
   void configProfiles({
     required List<DebugProfile> profiles,
     int profileIndex = 0,
@@ -38,24 +40,14 @@ class DebugInitialValues extends StatelessWidget {
     if (!kDebugMode) {
       return builder(context);
     }
-
-    // T getValue<T>(String key) {
-    //   final value = debugValues[key];
-    //   if (value is T) return value;
-    //   if (T == String) return '' as T;
-    //   if (T == bool) return false as T;
-    //   if (T == int) return 0 as T;
-    //   if (T == double) return 0.0 as T;
-    //   if (T == DateTime) return DateTime(2000) as T;
-
-    //   return null as T;
-    // }
     if (detctionAlgorithm == DebugInputFillerTypes.auto) {
       return DebugAutoFillerScopeState(
-        child: HighlightWrapper(child: builder(context)),
+        child: HighlightWrapper(
+            highlight: enableAutoFillerHighlight, child: builder(context)),
       );
     } else if (detctionAlgorithm ==
         DebugInputFillerTypes.simpleBuilderFunction) {
+      initializeValues != null ? initializeValues!() : () {};
       return builder(context);
     }
     return builder(context);

@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:debug_input_filler/cmd_outpots.dart';
+import 'package:debug_input_filler/utils/cmd_outpots.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -15,10 +15,7 @@ class ElementGenerator {
       _generateCheckbox(element.widget, value);
     } else if (element.widget is DropdownMenu) {
       _generateDropDown(element.widget as DropdownMenu, value);
-    } else {
-      // Handle other widget types if necessary
-      // debugPrint('Unhandled widget type: ${element.widget.runtimeType}');
-    }
+    } else {}
   }
 
   _genrateTextField(Widget textField, dynamic value) {
@@ -29,7 +26,7 @@ class ElementGenerator {
       controllerField.text = value;
     } else {
       debugPrint(
-          '${CmdOutputs.libraryHeader} ${CmdOutputs.unAbleToGenerate} ${textField.runtimeType} with no controller');
+          '${CmdOutputs.libraryHeader} ${CmdOutputs.noController} ${textField.runtimeType} ');
     }
   }
 
@@ -58,7 +55,7 @@ class ElementGenerator {
 
     if (controller == null) {
       debugPrint(
-          '${CmdOutputs.libraryHeader} ${CmdOutputs.unAbleToGenerate} ${dropdownMenu.runtimeType} with no controller');
+          '${CmdOutputs.libraryHeader} ${CmdOutputs.noController} ${dropdownMenu.runtimeType}');
     } else {
       debugPrint(
           '${CmdOutputs.libraryHeader} ${CmdOutputs.generatingValue} ${dropdownMenu.runtimeType}');

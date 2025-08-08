@@ -1,12 +1,12 @@
-import 'package:debug_input_filler/enums.dart';
-import 'package:debug_input_filler/keys.dart';
+import 'package:debug_input_filler/utils/enums.dart';
+import 'package:debug_input_filler/utils/keys.dart';
 import 'package:flutter/foundation.dart';
 import 'package:faker/faker.dart';
 
 class FakerDataGenrator {
   final Faker faker = Faker();
 
-  InputTypes parseKey(Key? key) {
+  String parseKey(Key? key) {
     if (key is DebugInputFillerKeys) {
       return key.keyType;
     }
@@ -22,11 +22,17 @@ class FakerDataGenrator {
         return generatePassword();
       case InputTypes.randomText:
         return generateRandomText();
+      case InputTypes.smallNumber:
+        return generateSmallNumber();
     }
   }
 
   String generatePassword() {
     return faker.internet.password();
+  }
+
+  String generateSmallNumber() {
+    return faker.randomGenerator.integer(100).toString();
   }
 
   String generateEmail() {

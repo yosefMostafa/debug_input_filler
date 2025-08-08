@@ -1,5 +1,4 @@
 import 'package:debug_input_filler/Auto/debug_auto_filler_handler.dart';
-import 'package:debug_input_filler/profiling/profiling.model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -93,7 +92,6 @@ class _HighlightWrapperState extends State<HighlightWrapper> {
                                       context as Element,
                                     );
                                   }
-
                                   setState(() {
                                     generatinonOn = value;
                                   });

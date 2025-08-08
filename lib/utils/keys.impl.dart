@@ -1,14 +1,14 @@
-import 'package:debug_input_filler/enums.dart';
+import 'package:debug_input_filler/utils/enums.dart';
 import 'package:flutter/cupertino.dart';
 
 abstract class DebugInputFillerKeys extends ValueKey<String> {
-  late final InputTypes type;
-  late final int counter;
+  final String type;
+  final int counter;
 
-  DebugInputFillerKeys({required this.type, required this.counter})
-      : super('${type.name}$counter');
+  const DebugInputFillerKeys({required this.type, required this.counter})
+      : super('$type$counter');
 
-  String get keyName => '${type.name}$counter';
+  String get keyName => '$type$counter';
   get keyType => type;
 
   @override
@@ -42,5 +42,13 @@ class RandomChoiceKey extends DebugInputFillerKeys {
   RandomChoiceKey()
       : super(type: InputTypes.randomText, counter: RandomChoiceKey.index) {
     RandomChoiceKey.index++;
+  }
+}
+
+class SmallNumber extends DebugInputFillerKeys {
+  static int index = 0;
+  SmallNumber()
+      : super(type: InputTypes.smallNumber, counter: SmallNumber.index) {
+    SmallNumber.index++;
   }
 }

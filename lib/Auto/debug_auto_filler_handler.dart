@@ -1,7 +1,7 @@
-import 'package:debug_input_filler/cmd_outpots.dart';
-import 'package:debug_input_filler/element_generator.dart';
-import 'package:debug_input_filler/faker.dart';
-import 'package:debug_input_filler/keys.impl.dart';
+import 'package:debug_input_filler/utils/cmd_outpots.dart';
+import 'package:debug_input_filler/Auto/element_generator.dart';
+import 'package:debug_input_filler/utils/faker.dart';
+import 'package:debug_input_filler/utils/keys.impl.dart';
 import 'package:debug_input_filler/profiling/profiling.model.dart';
 import 'package:debug_input_filler/profiling/profiling_register.dart';
 import 'package:flutter/material.dart';
@@ -64,7 +64,8 @@ class DebugAutoFillerHandler {
 
   dynamic getValue(DebugInputFillerKeys key) {
     if (_profileRegistry.hasProfiles) {
-      return _currentProfile.values[key.keyType];
+      return _currentProfile.values[key.keyType] ??
+          _faker.generateValueFromKey(key);
     }
     return _faker.generateValueFromKey(key);
   }
