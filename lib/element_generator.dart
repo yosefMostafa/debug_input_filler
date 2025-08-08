@@ -1,29 +1,27 @@
 import 'dart:math';
 
 import 'package:debug_input_filler/cmd_outpots.dart';
-import 'package:debug_input_filler/highlight_wrapper.dart';
-import 'package:faker/faker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ElementGenerator {
-  engine(Element element, String value) {
+  engine(Element element, dynamic value) {
     if (element.widget is TextField ||
         element.widget is TextFormField ||
         element.widget is CupertinoTextField) {
       _genrateTextField(element.widget, value);
     } else if (element.widget is Checkbox ||
         element.widget is CheckboxListTile) {
-      _generateCheckbox(element.widget);
+      _generateCheckbox(element.widget, value);
     } else if (element.widget is DropdownMenu) {
-      _generateDropDown(element.widget as DropdownMenu);
+      _generateDropDown(element.widget as DropdownMenu, value);
     } else {
       // Handle other widget types if necessary
       // debugPrint('Unhandled widget type: ${element.widget.runtimeType}');
     }
   }
 
-  _genrateTextField(Widget textField, String value) {
+  _genrateTextField(Widget textField, dynamic value) {
     final controllerField = (textField as dynamic).controller;
     if (controllerField != null) {
       debugPrint(
@@ -35,9 +33,7 @@ class ElementGenerator {
     }
   }
 
-  _generateCheckbox(
-    Widget checkbox,
-  ) {
+  _generateCheckbox(Widget checkbox, dynamic value) {
     if ((checkbox as dynamic).onChanged == null) {
       debugPrint(
           '${CmdOutputs.libraryHeader} ${CmdOutputs.unAbleToGenerate} ${checkbox.runtimeType} with no onChanged callback');
@@ -45,10 +41,10 @@ class ElementGenerator {
     }
     debugPrint(
         '${CmdOutputs.libraryHeader} ${CmdOutputs.generatingValue} ${checkbox.runtimeType}');
-    (checkbox as dynamic).onChanged?.call(true);
+    (checkbox as dynamic).onChanged?.call(value != '');
   }
 
-  _generateDropDown(DropdownMenu dropdownMenu) {
+  _generateDropDown(DropdownMenu dropdownMenu, dynamic value) {
     final controller = dropdownMenu.controller;
 
     final entries = dropdownMenu.dropdownMenuEntries;
@@ -66,7 +62,7 @@ class ElementGenerator {
     } else {
       debugPrint(
           '${CmdOutputs.libraryHeader} ${CmdOutputs.generatingValue} ${dropdownMenu.runtimeType}');
-      controller.text = selectedValue;
+      controller.text = value != '' ? selectedValue : value;
     }
   }
 }

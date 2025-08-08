@@ -13,7 +13,7 @@ class FakerDataGenrator {
     return InputTypes.randomText;
   }
 
-  String generateValueFromKey(Key? key) {
+  dynamic generateValueFromKey(Key? key) {
     final type = parseKey(key);
     switch (type) {
       case InputTypes.email:
