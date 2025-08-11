@@ -1,39 +1,29 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# bgColor
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/tools/pub/writing-package-pages).
+**bgColor** is a Flutter package that can automatically traverse the widget tree, detect interactive widgets such as `DropdownButton`, `Radio`, and more, and programmatically trigger their selection or state changes.  
+It’s perfect for **UI testing, automation, and generating random UI states** without requiring manual interaction.
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/to/develop-packages).
--->
+---
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+## ✨ Features
 
-## Features
+- 🔍 **Auto-detect widgets** in the widget tree  
+- 🎯 **Trigger widget interactions** programmatically  
+- 🎲 **Randomize widget states** for testing scenarios  
+- 🧪 Perfect for **UI testing and automation scripts**  
+- 📦 Works with `DropdownButton`, `Radio`, and can be extended to more widgets  
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+---
 
-## Getting started
+## 📦 Installation
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+Add this to your `pubspec.yaml`:
 
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
-
-```dart
-const like = 'sample';
+```yaml
+dependencies:
+  bgcolor: ^1.0.0
 ```
-
-## Additional information
-
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+Then run 
+```cmd
+flutter pub get
+```

@@ -1,65 +1,45 @@
-import 'dart:math';
-
+import 'package:debug_input_filler/Auto/widget_extensions.dart';
 import 'package:debug_input_filler/utils/cmd_outpots.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+typedef GeneratorFn = void Function(dynamic widget, dynamic value);
+
 class ElementGenerator {
+  static final List<(bool Function(Widget), GeneratorFn)> _generators = [
+    ((w) => w is TextField, (w, v) => (w as TextField).generateValue(v)),
+    (
+      (w) => w is TextFormField,
+      (w, v) => (w as TextFormField).generateValue(v)
+    ),
+    (
+      (w) => w is CupertinoTextField,
+      (w, v) => (w as CupertinoTextField).generateValue(v)
+    ),
+    ((w) => w is Checkbox, (w, v) => (w as Checkbox).generateValue(v)),
+    ((w) => w is DropdownMenu, (w, v) => (w as DropdownMenu).generateValue(v)),
+    (
+      (w) => w is CheckboxListTile,
+      (w, v) => (w as CheckboxListTile).generateValue(v)
+    ),
+    ((w) => w is DropdownButton, (w, v) => triggerDropdown(w)),
+  ];
   engine(Element element, dynamic value) {
-    if (element.widget is TextField ||
-        element.widget is TextFormField ||
-        element.widget is CupertinoTextField) {
-      _genrateTextField(element.widget, value);
-    } else if (element.widget is Checkbox ||
-        element.widget is CheckboxListTile) {
-      _generateCheckbox(element.widget, value);
-    } else if (element.widget is DropdownMenu) {
-      _generateDropDown(element.widget as DropdownMenu, value);
-    } else {}
-  }
+    final widget = element.widget;
 
-  _genrateTextField(Widget textField, dynamic value) {
-    final controllerField = (textField as dynamic).controller;
-    if (controllerField != null) {
-      debugPrint(
-          '${CmdOutputs.libraryHeader} ${CmdOutputs.generatingValue} ${textField.runtimeType}');
-      controllerField.text = value;
-    } else {
-      debugPrint(
-          '${CmdOutputs.libraryHeader} ${CmdOutputs.noController} ${textField.runtimeType} ');
+    // Try to find and call generateValue dynamically
+    for (final (predicate, generator) in _generators) {
+      if (predicate(widget)) {
+        generator(widget, value);
+        return;
+      }
     }
-  }
-
-  _generateCheckbox(Widget checkbox, dynamic value) {
-    if ((checkbox as dynamic).onChanged == null) {
-      debugPrint(
-          '${CmdOutputs.libraryHeader} ${CmdOutputs.unAbleToGenerate} ${checkbox.runtimeType} with no onChanged callback');
+    if (widget is Radio) {
       return;
     }
+
     debugPrint(
-        '${CmdOutputs.libraryHeader} ${CmdOutputs.generatingValue} ${checkbox.runtimeType}');
-    (checkbox as dynamic).onChanged?.call(value != '');
-  }
-
-  _generateDropDown(DropdownMenu dropdownMenu, dynamic value) {
-    final controller = dropdownMenu.controller;
-
-    final entries = dropdownMenu.dropdownMenuEntries;
-    if (entries.isEmpty) {
-      debugPrint(
-          '${CmdOutputs.libraryHeader} ${CmdOutputs.unAbleToGenerate} ${dropdownMenu.runtimeType} with no entries');
-      return;
-    }
-    //select a random entry from the entries
-    final selectedValue = entries[Random().nextInt(entries.length)].value;
-
-    if (controller == null) {
-      debugPrint(
-          '${CmdOutputs.libraryHeader} ${CmdOutputs.noController} ${dropdownMenu.runtimeType}');
-    } else {
-      debugPrint(
-          '${CmdOutputs.libraryHeader} ${CmdOutputs.generatingValue} ${dropdownMenu.runtimeType}');
-      controller.text = value != '' ? selectedValue : value;
-    }
+      '${CmdOutputs.libraryHeader} ${CmdOutputs.unAbleToGenerate} ${widget.runtimeType} (unsupported widget)',
+    );
   }
 }

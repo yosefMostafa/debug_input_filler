@@ -1,3 +1,4 @@
+import 'package:debug_input_filler/Auto/widget_extensions.dart';
 import 'package:debug_input_filler/utils/cmd_outpots.dart';
 import 'package:debug_input_filler/Auto/element_generator.dart';
 import 'package:debug_input_filler/utils/faker.dart';
@@ -12,6 +13,7 @@ class DebugAutoFillerHandler {
   late final DebugProfileRegistry _profileRegistry =
       DebugProfileRegistry.instance;
   late DebugProfile _currentProfile;
+  List radioList = [];
 
   DebugAutoFillerHandler() {
     if (_profileRegistry.hasProfiles) {
@@ -23,10 +25,12 @@ class DebugAutoFillerHandler {
     // final root = context.findRenderObject();
     final rootElement = WidgetsBinding.instance.rootElement;
     rootElement?.visitChildElements(_visit);
+    triggerRandomRadioInEachGroup(radioList);
   }
 
   void refresh(Element element) {
     element.visitChildElements(_visit);
+    triggerRandomRadioInEachGroup(radioList);
   }
 
   void switchOff(Element element) {
@@ -74,6 +78,9 @@ class DebugAutoFillerHandler {
     final key = element.widget.key;
     if (key is DebugInputFillerKeys) {
       final value = getValue(key);
+      if (element.widget is Radio) {
+        radioList.add(element.widget);
+      }
       debugPrint(
           '${CmdOutputs.libraryHeader} Processing element with key: ${key.toString()}');
       _elementGenerator.engine(element, value);

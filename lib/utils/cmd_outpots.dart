@@ -5,4 +5,6 @@ class CmdOutputs {
   static const String unAbleToGenerate =
       '**** Unable to generate value for widget: ';
   static const String noController = '**** No controller found for widget: ';
+  static const String noItems = '**** No items found for widget: ';
+  static const String noOnChanged = '**** No onChanged found for widget: ';
 }

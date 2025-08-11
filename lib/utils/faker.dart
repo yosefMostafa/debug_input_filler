@@ -6,7 +6,7 @@ import 'package:faker/faker.dart';
 class FakerDataGenrator {
   final Faker faker = Faker();
 
-  String parseKey(Key? key) {
+  InputTypes parseKey(Key? key) {
     if (key is DebugInputFillerKeys) {
       return key.keyType;
     }
@@ -22,8 +22,24 @@ class FakerDataGenrator {
         return generatePassword();
       case InputTypes.randomText:
         return generateRandomText();
-      case InputTypes.smallNumber:
-        return generateSmallNumber();
+      case InputTypes.smallRangeNumber:
+        return generateNumber(1, 10);
+      case InputTypes.mediumRangeNumber:
+        return generateNumber(11, 100);
+      case InputTypes.name:
+        return generateName();
+      case InputTypes.text:
+        return generate4words();
+      case InputTypes.text1:
+        return generate4words();
+      case InputTypes.text2:
+        return generate4words();
+      case InputTypes.text3:
+        return generate4words();
+      case InputTypes.text4:
+        return generate4words();
+      case InputTypes.largeRangeNumber:
+        return generateNumber(101, 1000);
     }
   }
 
@@ -31,8 +47,8 @@ class FakerDataGenrator {
     return faker.internet.password();
   }
 
-  String generateSmallNumber() {
-    return faker.randomGenerator.integer(100).toString();
+  String generateNumber(int from, int to) {
+    return faker.randomGenerator.integer(to, min: from).toString();
   }
 
   String generateEmail() {
@@ -41,6 +57,10 @@ class FakerDataGenrator {
 
   String generateRandomText() {
     return faker.lorem.sentence();
+  }
+
+  String generate4words() {
+    return faker.lorem.words(4).join(' ');
   }
 
   String generateName() {

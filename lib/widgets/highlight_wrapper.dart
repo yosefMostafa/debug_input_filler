@@ -1,4 +1,5 @@
 import 'package:debug_input_filler/Auto/debug_auto_filler_handler.dart';
+import 'package:debug_input_filler/widgets/controle_buttom_layout.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -51,15 +52,72 @@ class _HighlightWrapperState extends State<HighlightWrapper> {
                   _autoFillerHandler.hasProfile() && widget.enableProfile
                       ? ControlButtonLayout(
                           child: PopupMenuButton(
+                          padding: EdgeInsets.zero,
                           icon: const Icon(Icons.more_vert, size: 16),
                           itemBuilder: (context) {
                             return _autoFillerHandler
                                 .getProfiles()
                                 .map((profile) {
+                              final isSelected =
+                                  _autoFillerHandler.currentProfile == profile;
                               return PopupMenuItem(
-                                value: profile,
-                                child: Text(profile.name),
-                              );
+                                  value: profile,
+                                  child: TweenAnimationBuilder(
+                                    tween: ColorTween(
+                                      begin: Colors.transparent,
+                                      end: isSelected
+                                          ? Theme.of(context)
+                                              .colorScheme
+                                              .primary
+                                          : Colors.transparent,
+                                    ),
+                                    duration: const Duration(milliseconds: 600),
+                                    curve: Curves.easeOutCubic,
+                                    builder: (context, bgColor, child) {
+                                      return Container(
+                                          decoration: BoxDecoration(
+                                            color: bgColor,
+                                            borderRadius:
+                                                BorderRadius.circular(6),
+                                          ),
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 4, horizontal: 8),
+                                          child: Row(children: [
+                                            Expanded(
+                                              child: Text(
+                                                profile.name,
+                                                style: TextStyle(
+                                                  fontSize: 14,
+                                                  color: isSelected
+                                                      ? Theme.of(context)
+                                                          .colorScheme
+                                                          .onPrimary
+                                                      : null,
+                                                  fontWeight: FontWeight.normal,
+                                                ),
+                                              ),
+                                            ),
+                                            if (isSelected)
+                                              // Animate check icon opacity
+                                              TweenAnimationBuilder<double>(
+                                                tween: Tween(
+                                                    begin: 0.0,
+                                                    end:
+                                                        isSelected ? 1.0 : 0.0),
+                                                duration: const Duration(
+                                                    milliseconds: 600),
+                                                builder:
+                                                    (context, opacity, _) =>
+                                                        Opacity(
+                                                  opacity: opacity,
+                                                  child: const Icon(Icons.check,
+                                                      size: 16,
+                                                      color: Colors.green),
+                                                ),
+                                              ),
+                                          ]));
+                                    },
+                                  ));
                             }).toList();
                           },
                           onSelected: (value) {
@@ -120,22 +178,6 @@ class _HighlightWrapperState extends State<HighlightWrapper> {
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class ControlButtonLayout extends StatelessWidget {
-  final Widget child;
-  const ControlButtonLayout({super.key, required this.child});
-
-  @override
-  Widget build(BuildContext context) {
-    return ClipRRect(
-      child: SizedBox(
-        width: 30,
-        height: 30,
-        child: child,
       ),
     );
   }

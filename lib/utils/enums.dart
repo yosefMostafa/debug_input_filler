@@ -3,9 +3,18 @@ enum DebugInputFillerTypes {
   simpleBuilderFunction,
 }
 
-abstract class InputTypes {
-  static const email = 'email';
-  static const password = 'password';
-  static const randomText = 'randomText';
-  static const smallNumber = 'smallNumber';
+enum InputTypes {
+  email,
+  password,
+  randomText,
+  smallRangeNumber,
+  mediumRangeNumber,
+  largeRangeNumber,
+  name,
+  //options for profiling
+  text,
+  text1,
+  text2,
+  text3,
+  text4,
 }

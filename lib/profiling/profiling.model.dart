@@ -6,3 +6,8 @@ class DebugProfile {
 
   const DebugProfile({required this.name, required this.values});
 }
+
+class DebugProfileAuto extends DebugProfile {
+  const DebugProfileAuto()
+      : super(name: 'Auto', values: const <InputTypes, String>{});
+}
