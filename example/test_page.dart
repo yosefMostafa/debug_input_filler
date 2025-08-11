@@ -1,57 +1,28 @@
-# Debug_input_filler
-[![pub package](https://img.shields.io/pub/v/Debug_input_filler.svg)](https://pub.dev/packages/Debug_input_filler)
-[![likes](https://img.shields.io/pub/likes/Debug_input_filler)](https://pub.dev/packages/Debug_input_filler/score)
-[![popularity](https://img.shields.io/pub/popularity/Debug_input_filler)](https://pub.dev/packages/Debug_input_filler/score)
-[![points](https://img.shields.io/pub/points/Debug_input_filler)](https://pub.dev/packages/Debug_input_filler/score)
+import 'package:debug_input_filler/debug_input_filler.dart';
+import 'package:debug_input_filler/utils/enums.dart';
+import 'package:debug_input_filler/widgets/highlight_wrapper.dart';
+import 'package:debug_input_filler/utils/keys.dart';
+import 'package:debug_input_filler/profiling/profiling.model.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
----
-## 📌 Overview
-**Debug_input_filler** is a Flutter utility that programmatically finds Input widgets in the widget tree and filles it with dummy data or given pregiven profile only works in developer mode and it doen't affect released apps .
-
-
-## ✨ Features
-
-- 🔍 **Auto-detect widgets** in the widget tree  
-- 🎯 **Trigger inputs** programmatically  
-- 🎲 **Randomize widget inputs** for testing scenarios  
-- 🧪 Perfect for **UI testing and automation scripts**  
-- 📦 Works with `TextField` `TextFormField` `CupertinoTextField` `Checkbox` `DropdownMenu` `CheckboxListTile` `DropdownButton`, `Radio`, and can be extended to more widgets  
-
----
-
-## 📦 Installation
-
-Add this to your `pubspec.yaml`:
-
-```yaml
-dependencies:
-  Debug_input_filler: ^1.0.0
-```
-Then run 
-```cmd
-flutter pub get
-```
-Dependencies
-This package uses the faker package to generate realistic test data.
-Usage
-```
 final List<DebugProfile> profiles = const [
   DebugProfile(
     name: 'Profile 1',
     values: {
       InputTypes.email: "email@example.com",
       InputTypes.password: "password",
+      // InputTypes.randomText: "<random text>",
     },
   ),
   DebugProfile(
     name: 'Profile 2',
     values: {
-       InputTypes.email: "yosef@gmail.com",
+      InputTypes.email: "yosef@gmail.com",
       InputTypes.password: "123456",
       InputTypes.randomText: "Lorem ipsum dolor sit amet",
       InputTypes.text: "Sample text",
       InputTypes.text2: "Another sample text",
-
     },
   ),
   DebugProfileAuto(),
@@ -67,9 +38,24 @@ void main() {
     )..configProfiles(profiles: profiles, profileIndex: 0),
   );
 }
-```
-Then in your pages :
-```
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Debug input Filler Demo',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+      ),
+      home: const DebugInputFillerTestPage(title: 'Debug input Filler Demo'),
+    );
+  }
+}
+
 class DebugInputFillerTestPage extends StatefulWidget {
   const DebugInputFillerTestPage({super.key, required this.title});
 
@@ -79,8 +65,7 @@ class DebugInputFillerTestPage extends StatefulWidget {
   State<DebugInputFillerTestPage> createState() =>
       _DebugInputFillerTestPageState();
 }
-```
-```
+
 class _DebugInputFillerTestPageState extends State<DebugInputFillerTestPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -97,7 +82,6 @@ class _DebugInputFillerTestPageState extends State<DebugInputFillerTestPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-
         title: Text(widget.title),
       ),
       body: HighlightWrapper(
@@ -108,14 +92,12 @@ class _DebugInputFillerTestPageState extends State<DebugInputFillerTestPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 TextField(key: EmailKey(), controller: _emailController),
-
                 TextFormField(
                   controller: _passwordController,
                   key: PassKey(),
                   decoration: const InputDecoration(labelText: 'Password'),
                 ),
                 TextField(key: EmailKey(), controller: _randomTextController),
-
                 HighlightWrapper(
                   highlight: true,
                   child: CupertinoTextField(
@@ -167,7 +149,6 @@ class _DebugInputFillerTestPageState extends State<DebugInputFillerTestPage> {
                 ),
                 Radio(
                   key: RandomChoiceKey(),
-
                   value: 'Option 1',
                   groupValue: radioChoice,
                   onChanged: (value) {
@@ -198,7 +179,6 @@ class _DebugInputFillerTestPageState extends State<DebugInputFillerTestPage> {
                 ),
                 Checkbox(
                   key: RandomChoiceKey(),
-
                   value: _checkboxValue,
                   onChanged: (value) {
                     setState(() {
@@ -214,10 +194,3 @@ class _DebugInputFillerTestPageState extends State<DebugInputFillerTestPage> {
     );
   }
 }
-```
-⚙️ How It Works
-> Traverses the widget tree using the provided context
-
-> Finds matching widget types (e.g., DropdownButton, Radio) based on keys
-
-> Calls their change functionality  with the desired or randomized value
