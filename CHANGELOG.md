@@ -11,3 +11,6 @@
 
 ## 1.0.11
 - Added changelog
+
+## 1.0.12
+- mminor change the readme.md

@@ -1,8 +1,8 @@
 # Debug_input_filler
-[![pub package](https://img.shields.io/pub/v/Debug_input_filler.svg)](https://pub.dev/packages/Debug_input_filler)
-[![likes](https://img.shields.io/pub/likes/Debug_input_filler)](https://pub.dev/packages/Debug_input_filler/score)
-[![popularity](https://img.shields.io/pub/popularity/Debug_input_filler)](https://pub.dev/packages/Debug_input_filler/score)
-[![points](https://img.shields.io/pub/points/Debug_input_filler)](https://pub.dev/packages/Debug_input_filler/score)
+[![pub package](https://img.shields.io/pub/v/debug_input_filler.svg)](https://pub.dev/packages/debug_input_filler)
+[![likes](https://img.shields.io/pub/likes/debug_input_filler)](https://pub.dev/packages/debug_input_filler/score)
+[![popularity](https://img.shields.io/pub/popularity/debug_input_filler)](https://pub.dev/packages/debug_input_filler/score)
+[![points](https://img.shields.io/pub/points/debug_input_filler)](https://pub.dev/packages/debug_input_filler/score)
 
 ---
 ## 📌 Overview
