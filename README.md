@@ -25,7 +25,7 @@ Add this to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  Debug_input_filler: ^1.0.1
+  Debug_input_filler: ^1.0.11
 ```
 Then run 
 ```cmd

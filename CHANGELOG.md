@@ -8,3 +8,6 @@
 
 ## 1.0.1
 - Added a working example
+
+## 1.0.11
+- Added changelog
