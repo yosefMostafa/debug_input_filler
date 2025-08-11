@@ -1,6 +1,6 @@
 name: debug_input_filler
 description: A Flutter widget to inject initial values in debug mode for different input widgets.
-version: 1.0.0
+version: 1.0.1
 homepage: https://github.com/yosefMostafa/debug_input_filler
 license: MIT
 issue_tracker: https://github.com/yosefMostafa/debug_input_filler/issues

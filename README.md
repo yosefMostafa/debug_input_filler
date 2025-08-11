@@ -4,9 +4,35 @@
 [![popularity](https://img.shields.io/pub/popularity/Debug_input_filler)](https://pub.dev/packages/Debug_input_filler/score)
 [![points](https://img.shields.io/pub/points/Debug_input_filler)](https://pub.dev/packages/Debug_input_filler/score)
 
- 
+---
+## 📌 Overview
+**Debug_input_filler** is a Flutter utility that programmatically finds Input widgets in the widget tree and filles it with dummy data or given pregiven profile only works in developer mode and it doen't affect released apps .
+
+
+## ✨ Features
+
+- 🔍 **Auto-detect widgets** in the widget tree  
+- 🎯 **Trigger inputs** programmatically  
+- 🎲 **Randomize widget inputs** for testing scenarios  
+- 🧪 Perfect for **UI testing and automation scripts**  
+- 📦 Works with `TextField` `TextFormField` `CupertinoTextField` `Checkbox` `DropdownMenu` `CheckboxListTile` `DropdownButton`, `Radio`, and can be extended to more widgets  
+
+---
+## 1.0.1
+
+- Initial release of the package.
+- Generates random data using the `faker` package.
+- Supports name, email,randomtext , Numbers,CustomText fields.
+- Added README with usage examples.
+- Added MIT LICENSE.
+
+## 📦 Installation
+
+Add this to your `pubspec.yaml`:
+
+```yaml
 dependencies:
-  Debug_input_filler: ^1.0.0
+  Debug_input_filler: ^1.0.1
 ```
 Then run 
 ```cmd
