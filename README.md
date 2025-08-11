@@ -18,13 +18,6 @@
 - 📦 Works with `TextField` `TextFormField` `CupertinoTextField` `Checkbox` `DropdownMenu` `CheckboxListTile` `DropdownButton`, `Radio`, and can be extended to more widgets  
 
 ---
-## 1.0.1
-
-- Initial release of the package.
-- Generates random data using the `faker` package.
-- Supports name, email,randomtext , Numbers,CustomText fields.
-- Added README with usage examples.
-- Added MIT LICENSE.
 
 ## 📦 Installation
 
